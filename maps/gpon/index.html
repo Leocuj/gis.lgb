@@ -15,39 +15,102 @@
 <link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
-        html, body, #map {
-            width: 100%;
-            height: 100%;
-            padding: 0;
-            margin: 0;
-        }
+            html, body, #map {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+            }
 
-			/* BOTÓN FLOTANTE */
-.btn-volver {
-    position: absolute;
-    top: 10px;
-    left: 50px;
-    z-index: 1000;
-    background: #007BFF;
-    color: white;
-    padding: 8px 12px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-family: Arial, sans-serif;
-}
+/* ================= MENÚ FLOTANTE ================= */
 
-.btn-volver:hover {
-    background: #0056b3;
-}
+            .menu-flotante {
+                position: fixed;
+                top: 15px;
+                left: 75px;
+                z-index: 900;
+                font-family: Arial, sans-serif;
+            }
 
-		
+            /* BOTÓN PRINCIPAL */
+            .menu-btn {
+                background: rgba(11, 61, 145, 0.95);
+                color: white;
+                border: none;
+                padding: 12px 18px;
+                border-radius: 12px;
+                font-size: 15px;
+                font-weight: bold;
+                cursor: pointer;
+                transition: 0.25s;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            }
+
+            .menu-btn:hover {
+                background: #0d4fbf;
+                transform: translateY(-2px);
+            }
+
+            /* CONTENEDOR */
+            .menu-contenido {
+                display: none;
+                margin-top: 10px;
+                min-width: 220px;
+                background: rgba(255,255,255,0.95);
+                border-radius: 14px;
+                overflow: hidden;
+                backdrop-filter: blur(8px);
+                box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            }
+
+            /* LINKS */
+            .menu-contenido a {
+                display: block;
+                padding: 14px 18px;
+                color: #0b3d91;
+                text-decoration: none;
+                font-family: Arial, sans-serif;
+                font-size: 14px;
+                transition: 0.2s;
+            }
+
+            .menu-contenido a:hover {
+                background: #e9f2ff;
+                padding-left: 24px;
+            }
+
+            /* MOSTRAR MENÚ */
+            .menu-flotante:hover .menu-contenido {
+                display: block;
+            }
+
+            /* evita que tape controles del mapa */
+            .menu-contenido {
+                max-height: 70vh;
+                overflow-y: auto;
+            }
+
+        
 		</style>
         <title>GPON</title>
     </head>
     <body>
+        <div class="menu-flotante">
 
-            <!-- BOTÓN VOLVER -->
-    <a href="../../index.html" class="btn-volver">⬅ Volver al inicio</a>
+            <button class="menu-btn">
+                ☰ Mapas SIG
+            </button>
+
+            <div class="menu-contenido">
+                <a href="../../index.html">Inicio</a>
+                <a href="../instalaciones/index.html">Instalaciones</a>
+                <a href="../hfc/index.html">Red HFC</a>
+                <a href="../fibra_optica/index.html">Fibra Óptica</a>
+                <a href="../obra_civil/index.html">Obra Civil</a>
+                <a href="../gpon/index.html">GPON</a>
+            </div>
+
+        </div>
 		
         <div id="map">
         </div>
