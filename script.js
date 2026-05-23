@@ -2,6 +2,7 @@
 
 // 🔹 Definición de rutas
 const routes = {
+    mapa0: 'maps/unificado/index.html',
     mapa1: 'maps/instalaciones/index.html',
     mapa2: 'maps/hfc/index.html',
     mapa3: 'maps/fibra_optica/index.html',
