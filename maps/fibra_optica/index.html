@@ -15,12 +15,12 @@
 <link rel="stylesheet" href="css/nouislider.min.css">
         <link rel="stylesheet" href="css/leaflet.photon.css">
         <style>
-            html, body, #map {
-                width: 100%;
-                height: 100%;
-                padding: 0;
-                margin: 0;
-            }
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
 
 /* ================= MENÚ FLOTANTE ================= */
 
@@ -90,11 +90,10 @@
                 overflow-y: auto;
             }
 
-		</style>
+        </style>
         <title>Fibra Optica</title>
     </head>
     <body>
-
         <div class="menu-flotante">
 
             <button class="menu-btn">
@@ -112,7 +111,8 @@
 
         </div>
 
-		<div id="map">
+
+        <div id="map">
         </div>
         <script src="js/qgis2web_expressions.js"></script>
         <script src="js/leaflet.js"></script>
@@ -129,12 +129,12 @@
         <script src="js/tailDT.js"></script>
 <script src="js/nouislider.min.js"></script>
 <script src="js/wNumb.js"></script>
-        <script src="data/LINEAS_2.js"></script>
-        <script src="data/PUNTOS_3.js"></script>
+        <script src="data/Lneas_2.js"></script>
+        <script src="data/Postes_3.js"></script>
         <script>
         var map = L.map('map', {
             zoomControl:false, maxZoom:28, minZoom:1
-        }).fitBounds([[14.320429348817873,-91.25435778705923],[15.398836770696965,-89.98355267741309]]);
+        }).fitBounds([[13.68996528064304,-92.3883411027617],[16.983703681555884,-87.85945080150654]]);
         var hash = new L.Hash(map);
         map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
         var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
@@ -225,7 +225,6 @@
             maxZoom: 28,
         });
         layer_WorldImagery_0;
-        map.addLayer(layer_WorldImagery_0);
         map.createPane('pane_OpenStreetMap_1');
         map.getPane('pane_OpenStreetMap_1').style.zIndex = 401;
         var layer_OpenStreetMap_1 = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -237,19 +236,18 @@
         });
         layer_OpenStreetMap_1;
         map.addLayer(layer_OpenStreetMap_1);
-        function pop_LINEAS_2(feature, layer) {
+        function pop_Lneas_2(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td class="visible-with-data" id="Name">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(String(feature.properties['ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">descriptio</th>\
-                        <td class="visible-with-data" id="descriptio">' + (feature.properties['descriptio'] !== null ? autolinker.link(String(feature.properties['descriptio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">PROYECTO</th>\
+                        <td>' + (feature.properties['PROYECTO'] !== null ? autolinker.link(String(feature.properties['PROYECTO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">FILE</th>\
-                        <td class="visible-with-data" id="FILE">' + (feature.properties['FILE'] !== null ? autolinker.link(String(feature.properties['FILE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>ALIAS</strong><br />' + (feature.properties['ALIAS'] !== null ? autolinker.link(String(feature.properties['ALIAS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -259,9 +257,9 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_LINEAS_2_0() {
+        function style_Lneas_2_0() {
             return {
-                pane: 'pane_LINEAS_2',
+                pane: 'pane_Lneas_2',
                 opacity: 1,
                 color: 'rgba(225,0,0,1.0)',
                 dashArray: '',
@@ -272,33 +270,43 @@
                 interactive: true,
             }
         }
-        map.createPane('pane_LINEAS_2');
-        map.getPane('pane_LINEAS_2').style.zIndex = 402;
-        map.getPane('pane_LINEAS_2').style['mix-blend-mode'] = 'normal';
-        var layer_LINEAS_2 = new L.geoJson(json_LINEAS_2, {
+        map.createPane('pane_Lneas_2');
+        map.getPane('pane_Lneas_2').style.zIndex = 402;
+        map.getPane('pane_Lneas_2').style['mix-blend-mode'] = 'normal';
+        var layer_Lneas_2 = new L.geoJson(json_Lneas_2, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_LINEAS_2',
-            layerName: 'layer_LINEAS_2',
-            pane: 'pane_LINEAS_2',
-            onEachFeature: pop_LINEAS_2,
-            style: style_LINEAS_2_0,
+            dataVar: 'json_Lneas_2',
+            layerName: 'layer_Lneas_2',
+            pane: 'pane_Lneas_2',
+            onEachFeature: pop_Lneas_2,
+            style: style_Lneas_2_0,
         });
-        bounds_group.addLayer(layer_LINEAS_2);
-        map.addLayer(layer_LINEAS_2);
-        function pop_PUNTOS_3(feature, layer) {
+        bounds_group.addLayer(layer_Lneas_2);
+        map.addLayer(layer_Lneas_2);
+        function pop_Postes_3(feature, layer) {
             var popupContent = '<table>\
                     <tr>\
-                        <th scope="row">Name</th>\
-                        <td class="visible-with-data" id="Name">' + (feature.properties['Name'] !== null ? autolinker.link(String(feature.properties['Name']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">ID</th>\
+                        <td>' + (feature.properties['ID'] !== null ? autolinker.link(String(feature.properties['ID']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">descriptio</th>\
-                        <td class="visible-with-data" id="descriptio">' + (feature.properties['descriptio'] !== null ? autolinker.link(String(feature.properties['descriptio']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <th scope="row">PROYECTO</th>\
+                        <td>' + (feature.properties['PROYECTO'] !== null ? autolinker.link(String(feature.properties['PROYECTO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                     <tr>\
-                        <th scope="row">FILE</th>\
-                        <td class="visible-with-data" id="FILE">' + (feature.properties['FILE'] !== null ? autolinker.link(String(feature.properties['FILE']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                        <td colspan="2"><strong>ALIAS</strong><br />' + (feature.properties['ALIAS'] !== null ? autolinker.link(String(feature.properties['ALIAS']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">MATERIAL</th>\
+                        <td>' + (feature.properties['MATERIAL'] !== null ? autolinker.link(String(feature.properties['MATERIAL']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <th scope="row">ALTURA</th>\
+                        <td>' + (feature.properties['ALTURA'] !== null ? autolinker.link(String(feature.properties['ALTURA']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PHOTO'] !== null ? autolinker.link(String(feature.properties['PHOTO']).replace(/'/g, '\'').toLocaleString()) : '') + '</td>\
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
@@ -308,42 +316,94 @@
 			layer.bindPopup(content, { maxHeight: 400 });
         }
 
-        function style_PUNTOS_3_0() {
-            return {
-                pane: 'pane_PUNTOS_3',
-                radius: 10.0,
+        function style_Postes_3_0(feature) {
+            switch(String(feature.properties['MATERIAL'])) {
+                case 'Concreto':
+                    return {
+                pane: 'pane_Postes_3',
+                radius: 8.0,
                 opacity: 1,
-                color: 'rgba(35,35,35,1.0)',
+                color: 'rgba(50,87,128,1.0)',
                 dashArray: '',
                 lineCap: 'butt',
                 lineJoin: 'miter',
-                weight: 1,
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(141,230,93,1.0)',
+                interactive: true,
+            }
+                    break;
+                case 'Madera':
+                    return {
+                pane: 'pane_Postes_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
                 fill: true,
                 fillOpacity: 1,
                 fillColor: 'rgba(255,174,0,1.0)',
                 interactive: true,
             }
+                    break;
+                case 'Metal':
+                    return {
+                pane: 'pane_Postes_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(49,195,221,1.0)',
+                interactive: true,
+            }
+                    break;
+                default:
+                    return {
+                pane: 'pane_Postes_3',
+                radius: 8.0,
+                opacity: 1,
+                color: 'rgba(50,87,128,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 2.0,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(235,132,113,1.0)',
+                interactive: true,
+            }
+                    break;
+            }
         }
-        map.createPane('pane_PUNTOS_3');
-        map.getPane('pane_PUNTOS_3').style.zIndex = 403;
-        map.getPane('pane_PUNTOS_3').style['mix-blend-mode'] = 'normal';
-        var layer_PUNTOS_3 = new L.geoJson(json_PUNTOS_3, {
+        map.createPane('pane_Postes_3');
+        map.getPane('pane_Postes_3').style.zIndex = 403;
+        map.getPane('pane_Postes_3').style['mix-blend-mode'] = 'normal';
+        var layer_Postes_3 = new L.geoJson(json_Postes_3, {
             attribution: '',
             interactive: true,
-            dataVar: 'json_PUNTOS_3',
-            layerName: 'layer_PUNTOS_3',
-            pane: 'pane_PUNTOS_3',
-            onEachFeature: pop_PUNTOS_3,
+            dataVar: 'json_Postes_3',
+            layerName: 'layer_Postes_3',
+            pane: 'pane_Postes_3',
+            onEachFeature: pop_Postes_3,
             pointToLayer: function (feature, latlng) {
                 var context = {
                     feature: feature,
                     variables: {}
                 };
-                return L.circleMarker(latlng, style_PUNTOS_3_0(feature));
+                return L.circleMarker(latlng, style_Postes_3_0(feature));
             },
         });
-        bounds_group.addLayer(layer_PUNTOS_3);
-        map.addLayer(layer_PUNTOS_3);
+        bounds_group.addLayer(layer_Postes_3);
+        map.addLayer(layer_Postes_3);
         const url = {"Nominatim OSM": "https://nominatim.openstreetmap.org/search?format=geojson&addressdetails=1&",
         "France BAN": "https://api-adresse.data.gouv.fr/search/?"}
         var photonControl = L.control.photon({
@@ -398,10 +458,10 @@
             }
         });
         var overlaysTree = [
-            {label: '<img src="legend/PUNTOS_3.png" /> PUNTOS', layer: layer_PUNTOS_3},
-            {label: '<img src="legend/LINEAS_2.png" /> LINEAS', layer: layer_LINEAS_2},
-            {label: "Open Street Map", layer: layer_OpenStreetMap_1},
-            {label: "World Imagery", layer: layer_WorldImagery_0},]
+            {label: 'Postes<br /><table><tr><td style="text-align: center;"><img src="legend/Postes_3_Concreto0.png" /></td><td>Concreto</td></tr><tr><td style="text-align: center;"><img src="legend/Postes_3_Madera1.png" /></td><td>Madera</td></tr><tr><td style="text-align: center;"><img src="legend/Postes_3_Metal2.png" /></td><td>Metal</td></tr><tr><td style="text-align: center;"><img src="legend/Postes_3_3.png" /></td><td></td></tr></table>', layer: layer_Postes_3},
+            {label: '<img src="legend/Lneas_2.png" /> Lìneas', layer: layer_Lneas_2},
+            {label: "Open Street Map", layer: layer_OpenStreetMap_1, radioGroup: 'bm' },
+            {label: "World Imagery", layer: layer_WorldImagery_0, radioGroup: 'bm' },]
         var lay = L.control.layers.tree(null, overlaysTree,{
             //namedToggle: true,
             //selectorBack: false,
@@ -409,15 +469,65 @@
             //openedSymbol: '&#8863; &#x1f5c1;',
             //collapseAll: 'Collapse all',
             //expandAll: 'Expand all',
-            collapsed: true,
+            collapsed: false, 
         });
         lay.addTo(map);
+		document.addEventListener("DOMContentLoaded", function() {
+            // set new Layers List height which considers toggle icon
+            function newLayersListHeight() {
+                var layerScrollbarElement = document.querySelector('.leaflet-control-layers-scrollbar');
+                if (layerScrollbarElement) {
+                    var layersListElement = document.querySelector('.leaflet-control-layers-list');
+                    var originalHeight = layersListElement.style.height 
+                        || window.getComputedStyle(layersListElement).height;
+                    var newHeight = parseFloat(originalHeight) - 50;
+                    layersListElement.style.height = newHeight + 'px';
+                }
+            }
+            var isLayersListExpanded = true;
+            var controlLayersElement = document.querySelector('.leaflet-control-layers');
+            var toggleLayerControl = document.querySelector('.leaflet-control-layers-toggle');
+            // toggle Collapsed/Expanded and apply new Layers List height
+            toggleLayerControl.addEventListener('click', function() {
+                if (isLayersListExpanded) {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                } else {
+                    controlLayersElement.classList.add('leaflet-control-layers-expanded');
+                }
+                isLayersListExpanded = !isLayersListExpanded;
+                newLayersListHeight()
+            });	
+			// apply new Layers List height if toggle layerstree
+			if (controlLayersElement) {
+				controlLayersElement.addEventListener('click', function(event) {
+					var toggleLayerHeaderPointer = event.target.closest('.leaflet-layerstree-header-pointer span');
+					if (toggleLayerHeaderPointer) {
+						newLayersListHeight();
+					}
+				});
+			}
+            // Collapsed/Expanded at Start to apply new height
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            setTimeout(function() {
+                toggleLayerControl.click();
+            }, 10);
+            // Collapsed touch/small screen
+            var isSmallScreen = window.innerWidth < 650;
+            if (isSmallScreen) {
+                setTimeout(function() {
+                    controlLayersElement.classList.remove('leaflet-control-layers-expanded');
+                    isLayersListExpanded = !isLayersListExpanded;
+                }, 500);
+            }  
+        });       
         setBounds();
         map.addControl(new L.Control.Search({
-            layer: layer_PUNTOS_3,
+            layer: layer_Lneas_2,
             initial: false,
             hideMarkerOnCollapse: true,
-            propertyName: 'Name'}));
+            propertyName: 'ALIAS'}));
         if (typeof url === 'undefined') {
             document.getElementsByClassName('search-button')[0].className += ' fa fa-binoculars';
         } else {
@@ -442,7 +552,7 @@
         document.getElementById("all").appendChild(col1);
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
-        var Filters = {"FILE": "str"};
+        var Filters = {"ALTURA": "real","ALIAS": "str","MATERIAL": "str","PROYECTO": "str"};
         function filterFunc() {
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
@@ -534,63 +644,188 @@
         }
             document.getElementById("menu").appendChild(
                 document.createElement("div"));
-            var div_FILE = document.createElement('div');
-            div_FILE.id = "div_FILE";
-            div_FILE.className= "filterselect";
-            document.getElementById("menu").appendChild(div_FILE);
-            sel_FILE = document.createElement('select');
-            sel_FILE.multiple = true;
-            sel_FILE.size = 10;
-            sel_FILE.id = "sel_FILE";
-            var FILE_options_str = "<option value='' unselected></option>";
-            sel_FILE.onchange = function(){filterFunc()};
-            FILE_options_str  += '<option value="GT-BRC-2023-126 LLANO GRANDE QUICHE Llano grande">GT-BRC-2023-126 LLANO GRANDE QUICHE Llano grande</option>';
-            FILE_options_str  += '<option value="GT-BRC-2025-329 CHOJOLONQUIEJ AGUA CALIENTE Zacualpa quiche">GT-BRC-2025-329 CHOJOLONQUIEJ AGUA CALIENTE Zacualpa quiche</option>';
-            FILE_options_str  += '<option value="GT-BRC-2025-349 MAYUELAS II TC MAYUELAS 2 XT">GT-BRC-2025-349 MAYUELAS II TC MAYUELAS 2 XT</option>';
-            FILE_options_str  += '<option value="GT-BRC-2025-67 (7026) PACHUTE TC Pachute TC (7026)">GT-BRC-2025-67 (7026) PACHUTE TC Pachute TC (7026)</option>';
-            FILE_options_str  += '<option value="T0000000 CHICHOCHE Quizá chale 7133 uspantan quiche">T0000000 CHICHOCHE Quizá chale 7133 uspantan quiche</option>';
-            FILE_options_str  += '<option value="T1006198 MOVIL SAN ANTONIO PALOPO Palopo">T1006198 MOVIL SAN ANTONIO PALOPO Palopo</option>';
-            FILE_options_str  += '<option value="T1056671 TRASLADO MOVIL ESTADIO LOS CUCHUMATANES XT TC KMZ T1056671 TRASLADO MOVIL ESTADIO LOS CUCHUMATANES XT TC">T1056671 TRASLADO MOVIL ESTADIO LOS CUCHUMATANES XT TC KMZ T1056671 TRASLADO MOVIL ESTADIO LOS CUCHUMATANES XT TC</option>';
-            FILE_options_str  += '<option value="T1057340 CHICHORIN">T1057340 CHICHORIN</option>';
-            FILE_options_str  += '<option value="T1172144 CHIQUIRIQUIAJ II LEVANTAMIENTO CHIQUIRIQUIAJ">T1172144 CHIQUIRIQUIAJ II LEVANTAMIENTO CHIQUIRIQUIAJ</option>';
-            FILE_options_str  += '<option value="T1172177 MOVIL CALLE PLAZUELA - KMZ T1172177 MOVIL CALLE PLAZUELA">T1172177 MOVIL CALLE PLAZUELA - KMZ T1172177 MOVIL CALLE PLAZUELA</option>';
-            FILE_options_str  += '<option value="T1182388 DIAGONAL SANTA RITA DIAGONAL SANTA RITA">T1182388 DIAGONAL SANTA RITA DIAGONAL SANTA RITA</option>';
-            FILE_options_str  += '<option value="T1227863 XINAJXOJ - KMZ T1227863 XINAJXOJ">T1227863 XINAJXOJ - KMZ T1227863 XINAJXOJ</option>';
-            FILE_options_str  += '<option value="T1238025 MOVIL MERCADO QUETZALTENANGO KMZ T1238025 MOVIL MERCADO QUETZALTENANGO">T1238025 MOVIL MERCADO QUETZALTENANGO KMZ T1238025 MOVIL MERCADO QUETZALTENANGO</option>';
-            FILE_options_str  += '<option value="T1247248 MOVIL FINCA MOJARRAS KMZ T1247248 MOVIL FINCA MOJARRAS">T1247248 MOVIL FINCA MOJARRAS KMZ T1247248 MOVIL FINCA MOJARRAS</option>';
-            FILE_options_str  += '<option value="T1376227 UP LINK GPON NUEVO PALMAR KMZ T1376227 UP LINK GPON NUEVO PALMAR">T1376227 UP LINK GPON NUEVO PALMAR KMZ T1376227 UP LINK GPON NUEVO PALMAR</option>';
-            FILE_options_str  += '<option value="T1439081 TRANSMISION UR PALIN A UR AMATITLAN - KMZ T1439081 TRANSMISION UR PALIN A UR AMATITLAN">T1439081 TRANSMISION UR PALIN A UR AMATITLAN - KMZ T1439081 TRANSMISION UR PALIN A UR AMATITLAN</option>';
-            FILE_options_str  += '<option value="T1448491 UP LINK GPON CUILCO HUEHUETENANGO - KMZ T1448491 UP LINK GPON CUILCO HUEHUETENANGO">T1448491 UP LINK GPON CUILCO HUEHUETENANGO - KMZ T1448491 UP LINK GPON CUILCO HUEHUETENANGO</option>';
-            FILE_options_str  += '<option value="T1531053 MALACATAN LA INDEPENDENCIA TC - KMZ T1531053 MALACATAN LA INDEPENDENCIA TC">T1531053 MALACATAN LA INDEPENDENCIA TC - KMZ T1531053 MALACATAN LA INDEPENDENCIA TC</option>';
-            FILE_options_str  += '<option value="T1531079 MOVIL (7050) DESTACAMENTO PLAYA GRANDE - KMZ T1531079 MOVIL (7050) DESTACAMENTO PLAYA GRANDE">T1531079 MOVIL (7050) DESTACAMENTO PLAYA GRANDE - KMZ T1531079 MOVIL (7050) DESTACAMENTO PLAYA GRANDE</option>';
-            FILE_options_str  += '<option value="T1531126 LA INDEPENDENCIA RC TC KMZ T1531126 LA INDEPENDENCIA RC TC">T1531126 LA INDEPENDENCIA RC TC KMZ T1531126 LA INDEPENDENCIA RC TC</option>';
-            FILE_options_str  += '<option value="T1589369 PANIMAQUIN KMZ T1589369 PANIMAQUIN">T1589369 PANIMAQUIN KMZ T1589369 PANIMAQUIN</option>';
-            FILE_options_str  += '<option value="T1611517 (7031) CHAMUXU TC Camoja">T1611517 (7031) CHAMUXU TC Camoja</option>';
-            FILE_options_str  += '<option value="T1647071 CASERIO ALAMEDA (4620) Movil amparo san marcos">T1647071 CASERIO ALAMEDA (4620) Movil amparo san marcos</option>';
-            FILE_options_str  += '<option value="T1661889 MOVIL UP LINK SANTA SOFIA PINULA UR SAN JOSE PINULA T1661889 MOVIL  UP LINK SANTA SOFIA PINULA UR SAN JOSE PINULA">T1661889 MOVIL UP LINK SANTA SOFIA PINULA UR SAN JOSE PINULA T1661889 MOVIL  UP LINK SANTA SOFIA PINULA UR SAN JOSE PINULA</option>';
-            FILE_options_str  += '<option value="T1663703 REMOTO SMALL CLINICA VISUALIZA KMZ T1663703 REMOTO SMALL CLINICA VISUALIZA">T1663703 REMOTO SMALL CLINICA VISUALIZA KMZ T1663703 REMOTO SMALL CLINICA VISUALIZA</option>';
-            FILE_options_str  += '<option value="T1739395 MOVIL ESTADIO MARIO CAMPOSECO KMZ T1739395 MOVIL ESTADIO MARIO CAMPOSECO">T1739395 MOVIL ESTADIO MARIO CAMPOSECO KMZ T1739395 MOVIL ESTADIO MARIO CAMPOSECO</option>';
-            FILE_options_str  += '<option value="T1740486 MOVIL TEMPORAL NEBAJ KMZ T1740486 MOVIL TEMPORAL NEBAJ">T1740486 MOVIL TEMPORAL NEBAJ KMZ T1740486 MOVIL TEMPORAL NEBAJ</option>';
-            FILE_options_str  += '<option value="T1741411 MOVIL IRTRA PETAPA (GUA070) XT KMZ T1741411 MOVIL IRTRA PETAPA (GUA070) XT">T1741411 MOVIL IRTRA PETAPA (GUA070) XT KMZ T1741411 MOVIL IRTRA PETAPA (GUA070) XT</option>';
-            FILE_options_str  += '<option value="T1744776 MOVIL TRASLADO REFORMITA KMZ T1744776 MOVIL TRASLADO REFORMITA">T1744776 MOVIL TRASLADO REFORMITA KMZ T1744776 MOVIL TRASLADO REFORMITA</option>';
-            FILE_options_str  += '<option value="T1756795 MOVIL TEMPORAL ZONA 5 QUICHE KMZ T1756795 MOVIL TEMPORAL ZONA 5 QUICHE">T1756795 MOVIL TEMPORAL ZONA 5 QUICHE KMZ T1756795 MOVIL TEMPORAL ZONA 5 QUICHE</option>';
-            sel_FILE.innerHTML = FILE_options_str;
-            div_FILE.appendChild(sel_FILE);
-            var lab_FILE = document.createElement('div');
-            lab_FILE.innerHTML = 'FILE';
-            lab_FILE.className = 'filterlabel';
-            div_FILE.appendChild(lab_FILE);
-            var reset_FILE = document.createElement('div');
-            reset_FILE.innerHTML = 'clear filter';
-            reset_FILE.className = 'filterlabel';
-            reset_FILE.onclick = function() {
-                var options = document.getElementById("sel_FILE").options;
+            var div_ALTURA = document.createElement("div");
+            div_ALTURA.id = "div_ALTURA";
+            div_ALTURA.className = "slider";
+            document.getElementById("menu").appendChild(div_ALTURA);
+            var lab_ALTURA = document.createElement('div');
+            lab_ALTURA.innerHTML  = 'ALTURA: <span id="val_ALTURA"></span>';
+            lab_ALTURA.className = 'filterlabel';
+            document.getElementById("menu").appendChild(lab_ALTURA);
+            var reset_ALTURA = document.createElement('div');
+            reset_ALTURA.innerHTML = 'clear filter';
+            reset_ALTURA.className = 'filterlabel';
+            lab_ALTURA.className = 'filterlabel';
+            reset_ALTURA.onclick = function() {
+                sel_ALTURA.noUiSlider.reset();
+            };
+            document.getElementById("menu").appendChild(reset_ALTURA);
+            var sel_ALTURA = document.getElementById('div_ALTURA');
+            noUiSlider.create(sel_ALTURA, {
+                connect: true,
+                start: [4.688, 7.813],
+                range: {
+                min: 4.688,
+                max: 7.813
+                }
+            });
+            sel_ALTURA.noUiSlider.on('update', function (values) {
+            val_ALTURA = document.getElementById('val_ALTURA');
+            val_ALTURA.innerHTML = values.join(' - ');
+                filterFunc()
+            });
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_ALIAS = document.createElement('div');
+            div_ALIAS.id = "div_ALIAS";
+            div_ALIAS.className= "filterselect";
+            document.getElementById("menu").appendChild(div_ALIAS);
+            sel_ALIAS = document.createElement('select');
+            sel_ALIAS.multiple = true;
+            sel_ALIAS.size = 10;
+            sel_ALIAS.id = "sel_ALIAS";
+            var ALIAS_options_str = "<option value='' unselected></option>";
+            sel_ALIAS.onchange = function(){filterFunc()};
+            ALIAS_options_str  += '<option value="#N/A">#N/A</option>';
+            ALIAS_options_str  += '<option value="CALLE PLAZUELA">CALLE PLAZUELA</option>';
+            ALIAS_options_str  += '<option value="CASERIO ALAMEDA MOVIL AMPARO SAN MARCOS">CASERIO ALAMEDA MOVIL AMPARO SAN MARCOS</option>';
+            ALIAS_options_str  += '<option value="CHAMUXU TC CAMOJA">CHAMUXU TC CAMOJA</option>';
+            ALIAS_options_str  += '<option value="CHICHOCHE QUIZÁ CHALE USPANTAN QUICH">CHICHOCHE QUIZÁ CHALE USPANTAN QUICH</option>';
+            ALIAS_options_str  += '<option value="CHICHORIN">CHICHORIN</option>';
+            ALIAS_options_str  += '<option value="CHIQUIRIQUIAJ II LEVANTAMIENTO CHIQUIRIQUIAJ">CHIQUIRIQUIAJ II LEVANTAMIENTO CHIQUIRIQUIAJ</option>';
+            ALIAS_options_str  += '<option value="CHOJOLONQUIEJ AGUA CALIENTE ZACUALPA QUICHE">CHOJOLONQUIEJ AGUA CALIENTE ZACUALPA QUICHE</option>';
+            ALIAS_options_str  += '<option value="CLINICA VISUALIZA">CLINICA VISUALIZA</option>';
+            ALIAS_options_str  += '<option value="CUILCO HUEHUETENANGO">CUILCO HUEHUETENANGO</option>';
+            ALIAS_options_str  += '<option value="DESTACAMENTO PLAYA GRANDE">DESTACAMENTO PLAYA GRANDE</option>';
+            ALIAS_options_str  += '<option value="DIAGONAL SANTA RITA">DIAGONAL SANTA RITA</option>';
+            ALIAS_options_str  += '<option value="ESTADIO LOS CUCHUMATANES XT TC">ESTADIO LOS CUCHUMATANES XT TC</option>';
+            ALIAS_options_str  += '<option value="ESTADIO MARIO CAMPOSECO">ESTADIO MARIO CAMPOSECO</option>';
+            ALIAS_options_str  += '<option value="FINCA MOJARRAS">FINCA MOJARRAS</option>';
+            ALIAS_options_str  += '<option value="IRTRA PETAPA XT">IRTRA PETAPA XT</option>';
+            ALIAS_options_str  += '<option value="LA INDEPENDENCIA RC TC">LA INDEPENDENCIA RC TC</option>';
+            ALIAS_options_str  += '<option value="LLANO GRANDE QUICHE LLANO GRANDE">LLANO GRANDE QUICHE LLANO GRANDE</option>';
+            ALIAS_options_str  += '<option value="MALACATAN LA INDEPENDENCIA TC">MALACATAN LA INDEPENDENCIA TC</option>';
+            ALIAS_options_str  += '<option value="MAYUELAS II TC">MAYUELAS II TC</option>';
+            ALIAS_options_str  += '<option value="MERCADO QUETZALTENANGO">MERCADO QUETZALTENANGO</option>';
+            ALIAS_options_str  += '<option value="NEBAJ">NEBAJ</option>';
+            ALIAS_options_str  += '<option value="NUEVO PALMAR">NUEVO PALMAR</option>';
+            ALIAS_options_str  += '<option value="PACHUTE TC">PACHUTE TC</option>';
+            ALIAS_options_str  += '<option value="PALIN A UR AMATITLAN">PALIN A UR AMATITLAN</option>';
+            ALIAS_options_str  += '<option value="PANIMAQUIN">PANIMAQUIN</option>';
+            ALIAS_options_str  += '<option value="SAN ANTONIO PALOPO">SAN ANTONIO PALOPO</option>';
+            ALIAS_options_str  += '<option value="SANTA SOFIA PINULA SAN JOSE PINULA">SANTA SOFIA PINULA SAN JOSE PINULA</option>';
+            ALIAS_options_str  += '<option value="TRASLADO REFORMITA">TRASLADO REFORMITA</option>';
+            ALIAS_options_str  += '<option value="XINAJXOJ">XINAJXOJ</option>';
+            ALIAS_options_str  += '<option value="ZONA 5 QUICHE">ZONA 5 QUICHE</option>';
+            sel_ALIAS.innerHTML = ALIAS_options_str;
+            div_ALIAS.appendChild(sel_ALIAS);
+            var lab_ALIAS = document.createElement('div');
+            lab_ALIAS.innerHTML = 'ALIAS';
+            lab_ALIAS.className = 'filterlabel';
+            div_ALIAS.appendChild(lab_ALIAS);
+            var reset_ALIAS = document.createElement('div');
+            reset_ALIAS.innerHTML = 'clear filter';
+            reset_ALIAS.className = 'filterlabel';
+            reset_ALIAS.onclick = function() {
+                var options = document.getElementById("sel_ALIAS").options;
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
                 filterFunc();
             };
-            div_FILE.appendChild(reset_FILE);
+            div_ALIAS.appendChild(reset_ALIAS);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_MATERIAL = document.createElement('div');
+            div_MATERIAL.id = "div_MATERIAL";
+            div_MATERIAL.className= "filterselect";
+            document.getElementById("menu").appendChild(div_MATERIAL);
+            sel_MATERIAL = document.createElement('select');
+            sel_MATERIAL.multiple = true;
+            sel_MATERIAL.size = 3;
+            sel_MATERIAL.id = "sel_MATERIAL";
+            var MATERIAL_options_str = "<option value='' unselected></option>";
+            sel_MATERIAL.onchange = function(){filterFunc()};
+            MATERIAL_options_str  += '<option value="Concreto">Concreto</option>';
+            MATERIAL_options_str  += '<option value="Madera">Madera</option>';
+            MATERIAL_options_str  += '<option value="Metal">Metal</option>';
+            sel_MATERIAL.innerHTML = MATERIAL_options_str;
+            div_MATERIAL.appendChild(sel_MATERIAL);
+            var lab_MATERIAL = document.createElement('div');
+            lab_MATERIAL.innerHTML = 'MATERIAL';
+            lab_MATERIAL.className = 'filterlabel';
+            div_MATERIAL.appendChild(lab_MATERIAL);
+            var reset_MATERIAL = document.createElement('div');
+            reset_MATERIAL.innerHTML = 'clear filter';
+            reset_MATERIAL.className = 'filterlabel';
+            reset_MATERIAL.onclick = function() {
+                var options = document.getElementById("sel_MATERIAL").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_MATERIAL.appendChild(reset_MATERIAL);
+            document.getElementById("menu").appendChild(
+                document.createElement("div"));
+            var div_PROYECTO = document.createElement('div');
+            div_PROYECTO.id = "div_PROYECTO";
+            div_PROYECTO.className= "filterselect";
+            document.getElementById("menu").appendChild(div_PROYECTO);
+            sel_PROYECTO = document.createElement('select');
+            sel_PROYECTO.multiple = true;
+            sel_PROYECTO.size = 10;
+            sel_PROYECTO.id = "sel_PROYECTO";
+            var PROYECTO_options_str = "<option value='' unselected></option>";
+            sel_PROYECTO.onchange = function(){filterFunc()};
+            PROYECTO_options_str  += '<option value="#N/A">#N/A</option>';
+            PROYECTO_options_str  += '<option value="GT-BRC-2023-126">GT-BRC-2023-126</option>';
+            PROYECTO_options_str  += '<option value="GT-BRC-2025-329">GT-BRC-2025-329</option>';
+            PROYECTO_options_str  += '<option value="GT-BRC-2025-349">GT-BRC-2025-349</option>';
+            PROYECTO_options_str  += '<option value="GT-BRC-2025-67 (7026)">GT-BRC-2025-67 (7026)</option>';
+            PROYECTO_options_str  += '<option value="T0000000 (7133 )">T0000000 (7133 )</option>';
+            PROYECTO_options_str  += '<option value="T1006198 MOVIL">T1006198 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1056671 TRASLADO MOVIL">T1056671 TRASLADO MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1057340">T1057340</option>';
+            PROYECTO_options_str  += '<option value="T1172144">T1172144</option>';
+            PROYECTO_options_str  += '<option value="T1172177 MOVIL">T1172177 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1182388">T1182388</option>';
+            PROYECTO_options_str  += '<option value="T1227863">T1227863</option>';
+            PROYECTO_options_str  += '<option value="T1238025 MOVIL">T1238025 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1247248 MOVIL">T1247248 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1376227 UP LINK GPON">T1376227 UP LINK GPON</option>';
+            PROYECTO_options_str  += '<option value="T1439081 TRANSMISION UR">T1439081 TRANSMISION UR</option>';
+            PROYECTO_options_str  += '<option value="T1448491 UP LINK GPON">T1448491 UP LINK GPON</option>';
+            PROYECTO_options_str  += '<option value="T1531053">T1531053</option>';
+            PROYECTO_options_str  += '<option value="T1531079 MOVIL (7050)">T1531079 MOVIL (7050)</option>';
+            PROYECTO_options_str  += '<option value="T1531126">T1531126</option>';
+            PROYECTO_options_str  += '<option value="T1589369">T1589369</option>';
+            PROYECTO_options_str  += '<option value="T1611517 (7031)">T1611517 (7031)</option>';
+            PROYECTO_options_str  += '<option value="T1647071 (4620)">T1647071 (4620)</option>';
+            PROYECTO_options_str  += '<option value="T1661889 MOVIL UP LINK">T1661889 MOVIL UP LINK</option>';
+            PROYECTO_options_str  += '<option value="T1663703 REMOTO SMALL">T1663703 REMOTO SMALL</option>';
+            PROYECTO_options_str  += '<option value="T1739395 MOVIL">T1739395 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1740486 MOVIL TEMPORAL">T1740486 MOVIL TEMPORAL</option>';
+            PROYECTO_options_str  += '<option value="T1741411 MOVIL (GUA070)">T1741411 MOVIL (GUA070)</option>';
+            PROYECTO_options_str  += '<option value="T1744776 MOVIL">T1744776 MOVIL</option>';
+            PROYECTO_options_str  += '<option value="T1756795 MOVIL TEMPORAL">T1756795 MOVIL TEMPORAL</option>';
+            sel_PROYECTO.innerHTML = PROYECTO_options_str;
+            div_PROYECTO.appendChild(sel_PROYECTO);
+            var lab_PROYECTO = document.createElement('div');
+            lab_PROYECTO.innerHTML = 'PROYECTO';
+            lab_PROYECTO.className = 'filterlabel';
+            div_PROYECTO.appendChild(lab_PROYECTO);
+            var reset_PROYECTO = document.createElement('div');
+            reset_PROYECTO.innerHTML = 'clear filter';
+            reset_PROYECTO.className = 'filterlabel';
+            reset_PROYECTO.onclick = function() {
+                var options = document.getElementById("sel_PROYECTO").options;
+                for (var i=0; i < options.length; i++) {
+                    options[i].selected = false;
+                }
+                filterFunc();
+            };
+            div_PROYECTO.appendChild(reset_PROYECTO);
         </script>        
     </body>
 </html>
