@@ -90,6 +90,237 @@
                 overflow-y: auto;
             }
 
+            .analytics-panel {
+                font-family: Arial, sans-serif;
+                margin: 12px 8px 16px;
+                color: #1f2933;
+            }
+
+            .analytics-section {
+                background: #ffffff;
+                border: 1px solid #d8dee6;
+                border-radius: 8px;
+                margin-bottom: 10px;
+                overflow: hidden;
+                box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+            }
+
+            .side-panel {
+                font-family: Arial, sans-serif;
+                margin: 12px 8px 10px;
+            }
+
+            .analytics-section summary {
+                cursor: pointer;
+                font-size: 13px;
+                font-weight: bold;
+                padding: 9px 10px;
+                background: #eef4fb;
+                color: #0b3d91;
+                list-style-position: inside;
+            }
+
+            .analytics-body {
+                padding: 10px;
+            }
+
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 8px;
+                margin-bottom: 12px;
+            }
+
+            .metric {
+                border: 1px solid #e1e7ef;
+                border-radius: 6px;
+                padding: 7px;
+                background: #f9fbfd;
+            }
+
+            .metric-value {
+                display: block;
+                font-size: 18px;
+                font-weight: bold;
+                color: #0b3d91;
+            }
+
+            .metric-label {
+                display: block;
+                font-size: 10px;
+                color: #52606d;
+                line-height: 1.25;
+            }
+
+            .chart-block {
+                margin-top: 10px;
+            }
+
+            .chart-title {
+                font-size: 11px;
+                font-weight: bold;
+                margin-bottom: 6px;
+                color: #334e68;
+            }
+
+            .bar-row {
+                display: grid;
+                grid-template-columns: minmax(58px, 88px) 1fr 32px;
+                align-items: center;
+                gap: 6px;
+                margin: 5px 0;
+                font-size: 10px;
+            }
+
+            .bar-label {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .bar-track {
+                height: 10px;
+                background: #e7edf4;
+                border-radius: 5px;
+                overflow: hidden;
+            }
+
+            .bar-fill {
+                height: 100%;
+                min-width: 2px;
+                background: #2f80ed;
+            }
+
+            .bar-value {
+                text-align: right;
+                color: #52606d;
+            }
+
+            .height-bars {
+                display: flex;
+                align-items: end;
+                gap: 4px;
+                height: 74px;
+                border-left: 1px solid #d8dee6;
+                border-bottom: 1px solid #d8dee6;
+                padding: 0 4px;
+            }
+
+            .height-bar {
+                flex: 1;
+                min-width: 6px;
+                background: #29a3a3;
+                border-radius: 4px 4px 0 0;
+            }
+
+            .height-scale {
+                display: flex;
+                justify-content: space-between;
+                font-size: 10px;
+                color: #52606d;
+                margin-top: 4px;
+            }
+
+            .data-table-wrap {
+                max-height: 260px;
+                overflow: auto;
+                border: 1px solid #d8dee6;
+                border-radius: 6px;
+            }
+
+            .data-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 10px;
+                background: #fff;
+            }
+
+            .data-table th,
+            .data-table td {
+                border-bottom: 1px solid #edf1f5;
+                padding: 6px;
+                text-align: left;
+                vertical-align: top;
+            }
+
+            .data-table th {
+                position: sticky;
+                top: 0;
+                background: #eef4fb;
+                color: #334e68;
+                z-index: 1;
+            }
+
+            .table-note {
+                margin-top: 6px;
+                font-size: 10px;
+                color: #52606d;
+            }
+
+            .detail-empty {
+                color: #52606d;
+                font-size: 12px;
+                line-height: 1.35;
+            }
+
+            .feature-detail {
+                max-height: 360px;
+                overflow: auto;
+            }
+
+            .feature-detail table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 11px;
+            }
+
+            .feature-detail th,
+            .feature-detail td {
+                border-bottom: 1px solid #edf1f5;
+                padding: 6px;
+                text-align: left;
+                vertical-align: top;
+            }
+
+            .feature-detail img {
+                max-width: 100% !important;
+                height: auto;
+                border-radius: 6px;
+            }
+
+            .leaflet-popup.id-popup .leaflet-popup-content-wrapper {
+                border-radius: 6px;
+                background: #0b3d91;
+                color: #fff;
+                box-shadow: 0 3px 10px rgba(0,0,0,0.25);
+            }
+
+            .leaflet-popup.id-popup .leaflet-popup-content {
+                margin: 6px 9px;
+                font: bold 12px/1.2 Arial, sans-serif;
+            }
+
+            .leaflet-popup.id-popup .leaflet-popup-tip {
+                background: #0b3d91;
+            }
+
+            @media (max-width: 800px) {
+                #mapWindow,
+                #menu {
+                    width: 100% !important;
+                    display: block !important;
+                }
+
+                #mapWindow {
+                    height: 65% !important;
+                }
+
+                #menu {
+                    height: 35%;
+                    overflow: auto;
+                }
+            }
+
         </style>
         <title>Fibra Optica</title>
     </head>
@@ -215,6 +446,56 @@
         var bounds_group = new L.featureGroup([]);
         function setBounds() {
         }
+        var selectedFeatureLayer = null;
+        var selectedFeaturePopup = null;
+
+        function resetSelectedFeatureStyle() {
+            if (!selectedFeatureLayer || !selectedFeatureLayer.feature) return;
+            if (selectedFeatureLayer.feature.geometry.type === "Point") {
+                selectedFeatureLayer.setStyle(style_Postes_3_0(selectedFeatureLayer.feature));
+            } else {
+                selectedFeatureLayer.setStyle(style_Lneas_2_0(selectedFeatureLayer.feature));
+            }
+        }
+
+        function highlightSelectedFeature(feature, layer, latlng) {
+            resetSelectedFeatureStyle();
+            selectedFeatureLayer = layer;
+            if (feature.geometry.type === "Point") {
+                var pointStyle = style_Postes_3_0(feature);
+                pointStyle.radius = 12;
+                pointStyle.weight = 4;
+                pointStyle.color = "rgba(11,61,145,1)";
+                layer.setStyle(pointStyle);
+            } else {
+                var lineStyle = style_Lneas_2_0(feature);
+                lineStyle.weight = 7;
+                lineStyle.color = "rgba(11,61,145,1)";
+                layer.setStyle(lineStyle);
+            }
+            if (layer.bringToFront) layer.bringToFront();
+            if (selectedFeaturePopup) map.closePopup(selectedFeaturePopup);
+            selectedFeaturePopup = L.popup({
+                closeButton: false,
+                autoClose: true,
+                closeOnClick: false,
+                className: "id-popup",
+                offset: [0, -8]
+            })
+            .setLatLng(latlng)
+            .setContent("ID: " + (feature.properties.ID || "N/A"))
+            .openOn(map);
+        }
+
+        function showFeatureDetail(content, titleText) {
+            var detailBody = document.getElementById("featureDetailBody");
+            var detailTitle = document.getElementById("featureDetailTitle");
+            var detailPanel = document.getElementById("featureDetailPanel");
+            if (!detailBody) return;
+            detailBody.innerHTML = '<div class="feature-detail">' + content + '</div>';
+            if (detailTitle) detailTitle.textContent = titleText || 'Detalle';
+            if (detailPanel) detailPanel.open = true;
+        }
         map.createPane('pane_WorldImagery_0');
         map.getPane('pane_WorldImagery_0').style.zIndex = 400;
         var layer_WorldImagery_0 = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
@@ -251,10 +532,10 @@
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
+			layer.on('click', function(e) {
+				highlightSelectedFeature(feature, layer, e.latlng);
+				showFeatureDetail(content, 'Linea');
 			});
-			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_Lneas_2_0() {
@@ -310,10 +591,11 @@
                     </tr>\
                 </table>';
             var content = removeEmptyRowsFromPopupContent(popupContent, feature);
-			layer.on('popupopen', function(e) {
-				addClassToPopupIfMedia(content, e.popup);
+			layer.on('click', function(e) {
+				var titleText = feature.properties['PROYECTO'] || feature.properties['ALIAS'] || 'Poste';
+				highlightSelectedFeature(feature, layer, e.latlng);
+				showFeatureDetail(content, titleText);
 			});
-			layer.bindPopup(content, { maxHeight: 400 });
         }
 
         function style_Postes_3_0(feature) {
@@ -553,10 +835,214 @@
         document.getElementById("all").appendChild(col2);
         col1.appendChild(mapDiv)
         var Filters = {"ALTURA": "real","ALIAS": "str","MATERIAL": "str","PROYECTO": "str"};
-        function filterFunc() {
+        var dashboardFeatures = json_Postes_3.features.slice(0);
+        var allAlturas = dashboardFeatures.map(function(feature) {
+            return Number(feature.properties.ALTURA);
+        }).filter(function(value) {
+            return !isNaN(value);
+        });
+        var alturaMinGlobal = Math.min.apply(null, allAlturas);
+        var alturaMaxGlobal = Math.max.apply(null, allAlturas);
+        var isSyncingFilters = false;
+
+        function getSelectedValues(key) {
+            var select = document.getElementById("sel_" + key);
+            var values = [];
+            if (!select) return values;
+            for (var i = 0; i < select.options.length; i++) {
+                if (select.options[i].selected && select.options[i].value !== "") {
+                    values.push(select.options[i].value);
+                }
+            }
+            return values;
+        }
+
+        function getAlturaValues() {
+            var slider = document.getElementById("div_ALTURA");
+            if (!slider || !slider.noUiSlider) return [alturaMinGlobal, alturaMaxGlobal];
+            var values = slider.noUiSlider.get();
+            return [parseFloat(values[0]), parseFloat(values[1])];
+        }
+
+        function getFilteredPostes(excludeKey) {
+            var alturaValues = getAlturaValues();
+            var selectedProyecto = getSelectedValues("PROYECTO");
+            var selectedMaterial = getSelectedValues("MATERIAL");
+            var selectedAlias = getSelectedValues("ALIAS");
+            return dashboardFeatures.filter(function(feature) {
+                var props = feature.properties || {};
+                if (excludeKey !== "PROYECTO" && selectedProyecto.length && selectedProyecto.indexOf(props.PROYECTO) < 0) return false;
+                if (excludeKey !== "MATERIAL" && selectedMaterial.length && selectedMaterial.indexOf(props.MATERIAL) < 0) return false;
+                if (excludeKey !== "ALIAS" && selectedAlias.length && selectedAlias.indexOf(props.ALIAS) < 0) return false;
+                if (excludeKey !== "ALTURA") {
+                    var altura = Number(props.ALTURA);
+                    if (isNaN(altura) || altura < alturaValues[0] || altura > alturaValues[1]) return false;
+                }
+                return true;
+            });
+        }
+
+        function countBy(features, key) {
+            var counts = {};
+            features.forEach(function(feature) {
+                var value = feature.properties[key] || "#N/A";
+                counts[value] = (counts[value] || 0) + 1;
+            });
+            return counts;
+        }
+
+        function syncSelectOptions(key) {
+            var select = document.getElementById("sel_" + key);
+            if (!select) return;
+            var counts = countBy(getFilteredPostes(key), key);
+            for (var i = 0; i < select.options.length; i++) {
+                var option = select.options[i];
+                if (!option.dataset.label) option.dataset.label = option.textContent;
+                if (option.value === "") {
+                    option.textContent = option.dataset.label;
+                    option.disabled = false;
+                    continue;
+                }
+                var selected = option.selected;
+                var count = counts[option.value] || 0;
+                option.disabled = count === 0 && !selected;
+                option.textContent = option.dataset.label + (count > 0 ? " (" + count + ")" : "");
+            }
+        }
+
+        function syncAlturaRange() {
+            var slider = document.getElementById("div_ALTURA");
+            if (!slider || !slider.noUiSlider) return;
+            var values = getFilteredPostes("ALTURA").map(function(feature) {
+                return Number(feature.properties.ALTURA);
+            }).filter(function(value) {
+                return !isNaN(value);
+            });
+            if (!values.length) values = allAlturas.slice(0);
+            var minValue = Math.min.apply(null, values);
+            var maxValue = Math.max.apply(null, values);
+            var current = getAlturaValues();
+            var nextMin = Math.max(current[0], minValue);
+            var nextMax = Math.min(current[1], maxValue);
+            if (nextMin > nextMax) {
+                nextMin = minValue;
+                nextMax = maxValue;
+            }
+            isSyncingFilters = true;
+            slider.noUiSlider.updateOptions({
+                range: {
+                    min: minValue,
+                    max: maxValue
+                }
+            }, false);
+            slider.noUiSlider.set([nextMin, nextMax]);
+            isSyncingFilters = false;
+        }
+
+        function renderBarChart(containerId, counts, limit, color) {
+            var container = document.getElementById(containerId);
+            if (!container) return;
+            var rows = Object.keys(counts).map(function(key) {
+                return { label: key, value: counts[key] };
+            }).sort(function(a, b) {
+                return b.value - a.value || a.label.localeCompare(b.label);
+            }).slice(0, limit);
+            var maxValue = rows.length ? rows[0].value : 0;
+            if (!rows.length) {
+                container.innerHTML = '<div class="table-note">Sin datos para los filtros actuales.</div>';
+                return;
+            }
+            container.innerHTML = rows.map(function(row) {
+                var width = maxValue ? Math.max(4, (row.value / maxValue) * 100) : 0;
+                return '<div class="bar-row" title="' + row.label + '">' +
+                    '<div class="bar-label">' + row.label + '</div>' +
+                    '<div class="bar-track"><div class="bar-fill" style="width:' + width + '%;background:' + color + ';"></div></div>' +
+                    '<div class="bar-value">' + row.value + '</div>' +
+                    '</div>';
+            }).join('');
+        }
+
+        function renderHeightChart(features) {
+            var container = document.getElementById("chart_ALTURA");
+            var scale = document.getElementById("scale_ALTURA");
+            if (!container || !scale) return;
+            var values = features.map(function(feature) {
+                return Number(feature.properties.ALTURA);
+            }).filter(function(value) {
+                return !isNaN(value);
+            });
+            if (!values.length) {
+                container.innerHTML = '<div class="table-note">Sin alturas disponibles.</div>';
+                scale.innerHTML = '';
+                return;
+            }
+            var minValue = Math.min.apply(null, values);
+            var maxValue = Math.max.apply(null, values);
+            var bins = [0, 0, 0, 0, 0];
+            values.forEach(function(value) {
+                var index = minValue === maxValue ? 0 : Math.min(4, Math.floor(((value - minValue) / (maxValue - minValue)) * 5));
+                bins[index] += 1;
+            });
+            var maxBin = Math.max.apply(null, bins);
+            container.innerHTML = bins.map(function(value) {
+                var height = maxBin ? Math.max(5, (value / maxBin) * 70) : 0;
+                return '<div class="height-bar" title="' + value + ' postes" style="height:' + height + 'px"></div>';
+            }).join('');
+            scale.innerHTML = '<span>' + minValue.toFixed(2) + '</span><span>' + maxValue.toFixed(2) + '</span>';
+        }
+
+        function renderDataTable(features) {
+            var body = document.getElementById("dataTableBody");
+            var note = document.getElementById("dataTableNote");
+            if (!body || !note) return;
+            var rows = features.slice(0, 80);
+            body.innerHTML = rows.map(function(feature) {
+                var props = feature.properties;
+                return '<tr>' +
+                    '<td>' + (props.PROYECTO || '') + '</td>' +
+                    '<td>' + (props.MATERIAL || '') + '</td>' +
+                    '<td>' + (props.ALTURA || '') + '</td>' +
+                    '<td>' + (props.ALIAS || '') + '</td>' +
+                    '</tr>';
+            }).join('');
+            note.textContent = features.length > 80 ? 'Mostrando 80 de ' + features.length + ' registros filtrados.' : 'Mostrando ' + features.length + ' registros filtrados.';
+        }
+
+        function updateDashboard(features) {
+            var countEl = document.getElementById("metric_total");
+            var projectEl = document.getElementById("metric_projects");
+            var heightEl = document.getElementById("metric_height");
+            var materialEl = document.getElementById("metric_materials");
+            if (!countEl) return;
+            var alturas = features.map(function(feature) {
+                return Number(feature.properties.ALTURA);
+            }).filter(function(value) {
+                return !isNaN(value);
+            });
+            countEl.textContent = features.length;
+            projectEl.textContent = Object.keys(countBy(features, "PROYECTO")).length;
+            materialEl.textContent = Object.keys(countBy(features, "MATERIAL")).length;
+            heightEl.textContent = alturas.length ? (Math.min.apply(null, alturas).toFixed(2) + " - " + Math.max.apply(null, alturas).toFixed(2)) : "0";
+            renderBarChart("chart_MATERIAL", countBy(features, "MATERIAL"), 6, "#2f80ed");
+            renderBarChart("chart_PROYECTO", countBy(features, "PROYECTO"), 8, "#7c3aed");
+            renderHeightChart(features);
+            renderDataTable(features);
+        }
+
+        function refreshLinkedFilters(changedKey) {
+            if (isSyncingFilters) return;
+            if (changedKey !== "ALTURA") syncAlturaRange();
+            syncSelectOptions("PROYECTO");
+            syncSelectOptions("MATERIAL");
+            syncSelectOptions("ALIAS");
+        }
+
+        function filterFunc(changedKey) {
+          refreshLinkedFilters(changedKey);
+          var filteredPostes = getFilteredPostes();
           map.eachLayer(function(lyr){
           if ("options" in lyr && "dataVar" in lyr["options"]){
-            features = this[lyr["options"]["dataVar"]].features.slice(0);
+            var features = this[lyr["options"]["dataVar"]].features.slice(0);
             try{
               for (key in Filters){
                 keyS = key.replace(/[^a-zA-Z0-9_]/g, "")
@@ -564,7 +1050,7 @@
                   var selection = [];
                   var options = document.getElementById("sel_" + keyS).options
                   for (var i=0; i < options.length; i++) {
-                    if (options[i].selected) selection.push(options[i].value);
+                    if (options[i].selected && options[i].value !== "") selection.push(options[i].value);
                   }
                     try{
                       if (key in features[0].properties){
@@ -614,26 +1100,6 @@
                     } catch(err){
                     }
                   }
-                if (Filters[key] == "date"
-                  || Filters[key] == "datetime"
-                  || Filters[key] == "time"){
-                  try{
-                    if (key in features[0].properties){
-                      HTMLkey = key.replace(/[&\/\\#,+()$~%.'":*?<>{} ]/g, '');
-                      startdate = document.getElementById("dat_" +
-                        HTMLkey + "_date1").value.replace(" ", "T");
-                      enddate = document.getElementById("dat_" +
-                        HTMLkey + "_date2").value.replace(" ", "T");
-                      for (i = features.length - 1; i >= 0; --i){
-                        if (features[i].properties[key] < startdate
-                          || features[i].properties[key] > enddate){
-                          features.splice(i,1);
-                        }
-                      }
-                    }
-                  } catch(err){
-                  }
-                }
               }
             } catch(err){
             }
@@ -641,17 +1107,25 @@
           this[lyr["options"]["layerName"]].addData(features);
           }
           })
+          updateDashboard(filteredPostes);
         }
-            document.getElementById("menu").appendChild(
+            var filterPanel = document.createElement('details');
+            filterPanel.id = 'filterPanel';
+            filterPanel.className = 'analytics-section side-panel';
+            filterPanel.open = true;
+            filterPanel.innerHTML = '<summary>Filtros</summary><div class="analytics-body" id="filterPanelBody"></div>';
+            document.getElementById("menu").appendChild(filterPanel);
+            var filterPanelBody = document.getElementById("filterPanelBody");
+            filterPanelBody.appendChild(
                 document.createElement("div"));
             var div_ALTURA = document.createElement("div");
             div_ALTURA.id = "div_ALTURA";
             div_ALTURA.className = "slider";
-            document.getElementById("menu").appendChild(div_ALTURA);
+            filterPanelBody.appendChild(div_ALTURA);
             var lab_ALTURA = document.createElement('div');
             lab_ALTURA.innerHTML  = 'ALTURA: <span id="val_ALTURA"></span>';
             lab_ALTURA.className = 'filterlabel';
-            document.getElementById("menu").appendChild(lab_ALTURA);
+            filterPanelBody.appendChild(lab_ALTURA);
             var reset_ALTURA = document.createElement('div');
             reset_ALTURA.innerHTML = 'clear filter';
             reset_ALTURA.className = 'filterlabel';
@@ -659,11 +1133,14 @@
             reset_ALTURA.onclick = function() {
                 sel_ALTURA.noUiSlider.reset();
             };
-            document.getElementById("menu").appendChild(reset_ALTURA);
+            filterPanelBody.appendChild(reset_ALTURA);
             var sel_ALTURA = document.getElementById('div_ALTURA');
             noUiSlider.create(sel_ALTURA, {
                 connect: true,
                 start: [4.688, 7.813],
+                format: wNumb({
+                    decimals: 3
+                }),
                 range: {
                 min: 4.688,
                 max: 7.813
@@ -672,20 +1149,20 @@
             sel_ALTURA.noUiSlider.on('update', function (values) {
             val_ALTURA = document.getElementById('val_ALTURA');
             val_ALTURA.innerHTML = values.join(' - ');
-                filterFunc()
+                if (!isSyncingFilters) filterFunc("ALTURA")
             });
-            document.getElementById("menu").appendChild(
+            filterPanelBody.appendChild(
                 document.createElement("div"));
             var div_ALIAS = document.createElement('div');
             div_ALIAS.id = "div_ALIAS";
             div_ALIAS.className= "filterselect";
-            document.getElementById("menu").appendChild(div_ALIAS);
+            filterPanelBody.appendChild(div_ALIAS);
             sel_ALIAS = document.createElement('select');
             sel_ALIAS.multiple = true;
             sel_ALIAS.size = 10;
             sel_ALIAS.id = "sel_ALIAS";
             var ALIAS_options_str = "<option value='' unselected></option>";
-            sel_ALIAS.onchange = function(){filterFunc()};
+            sel_ALIAS.onchange = function(){filterFunc("ALIAS")};
             ALIAS_options_str  += '<option value="#N/A">#N/A</option>';
             ALIAS_options_str  += '<option value="CALLE PLAZUELA">CALLE PLAZUELA</option>';
             ALIAS_options_str  += '<option value="CASERIO ALAMEDA MOVIL AMPARO SAN MARCOS">CASERIO ALAMEDA MOVIL AMPARO SAN MARCOS</option>';
@@ -731,21 +1208,21 @@
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
-                filterFunc();
+                filterFunc("ALIAS");
             };
             div_ALIAS.appendChild(reset_ALIAS);
-            document.getElementById("menu").appendChild(
+            filterPanelBody.appendChild(
                 document.createElement("div"));
             var div_MATERIAL = document.createElement('div');
             div_MATERIAL.id = "div_MATERIAL";
             div_MATERIAL.className= "filterselect";
-            document.getElementById("menu").appendChild(div_MATERIAL);
+            filterPanelBody.appendChild(div_MATERIAL);
             sel_MATERIAL = document.createElement('select');
             sel_MATERIAL.multiple = true;
             sel_MATERIAL.size = 3;
             sel_MATERIAL.id = "sel_MATERIAL";
             var MATERIAL_options_str = "<option value='' unselected></option>";
-            sel_MATERIAL.onchange = function(){filterFunc()};
+            sel_MATERIAL.onchange = function(){filterFunc("MATERIAL")};
             MATERIAL_options_str  += '<option value="Concreto">Concreto</option>';
             MATERIAL_options_str  += '<option value="Madera">Madera</option>';
             MATERIAL_options_str  += '<option value="Metal">Metal</option>';
@@ -763,21 +1240,21 @@
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
-                filterFunc();
+                filterFunc("MATERIAL");
             };
             div_MATERIAL.appendChild(reset_MATERIAL);
-            document.getElementById("menu").appendChild(
+            filterPanelBody.appendChild(
                 document.createElement("div"));
             var div_PROYECTO = document.createElement('div');
             div_PROYECTO.id = "div_PROYECTO";
             div_PROYECTO.className= "filterselect";
-            document.getElementById("menu").appendChild(div_PROYECTO);
+            filterPanelBody.appendChild(div_PROYECTO);
             sel_PROYECTO = document.createElement('select');
             sel_PROYECTO.multiple = true;
             sel_PROYECTO.size = 10;
             sel_PROYECTO.id = "sel_PROYECTO";
             var PROYECTO_options_str = "<option value='' unselected></option>";
-            sel_PROYECTO.onchange = function(){filterFunc()};
+            sel_PROYECTO.onchange = function(){filterFunc("PROYECTO")};
             PROYECTO_options_str  += '<option value="#N/A">#N/A</option>';
             PROYECTO_options_str  += '<option value="GT-BRC-2023-126">GT-BRC-2023-126</option>';
             PROYECTO_options_str  += '<option value="GT-BRC-2025-329">GT-BRC-2025-329</option>';
@@ -823,9 +1300,47 @@
                 for (var i=0; i < options.length; i++) {
                     options[i].selected = false;
                 }
-                filterFunc();
+                filterFunc("PROYECTO");
             };
             div_PROYECTO.appendChild(reset_PROYECTO);
+            var analyticsPanel = document.createElement('div');
+            analyticsPanel.id = 'analyticsPanel';
+            analyticsPanel.className = 'analytics-panel';
+            analyticsPanel.innerHTML =
+                '<details class="analytics-section" id="featureDetailPanel" open>' +
+                    '<summary id="featureDetailTitle">Detalle</summary>' +
+                    '<div class="analytics-body" id="featureDetailBody">' +
+                        '<div class="detail-empty">Seleccione un poste o una linea en el mapa para ver su informacion aqui.</div>' +
+                    '</div>' +
+                '</details>' +
+                '<details class="analytics-section" open>' +
+                    '<summary>Gráficas</summary>' +
+                    '<div class="analytics-body">' +
+                        '<div class="metric-grid">' +
+                            '<div class="metric"><span class="metric-value" id="metric_total">0</span><span class="metric-label">Postes filtrados</span></div>' +
+                            '<div class="metric"><span class="metric-value" id="metric_projects">0</span><span class="metric-label">Proyectos</span></div>' +
+                            '<div class="metric"><span class="metric-value" id="metric_materials">0</span><span class="metric-label">Materiales</span></div>' +
+                            '<div class="metric"><span class="metric-value" id="metric_height">0</span><span class="metric-label">Rango altura</span></div>' +
+                        '</div>' +
+                        '<div class="chart-block"><div class="chart-title">Material</div><div id="chart_MATERIAL"></div></div>' +
+                        '<div class="chart-block"><div class="chart-title">Proyecto</div><div id="chart_PROYECTO"></div></div>' +
+                        '<div class="chart-block"><div class="chart-title">Altura</div><div class="height-bars" id="chart_ALTURA"></div><div class="height-scale" id="scale_ALTURA"></div></div>' +
+                    '</div>' +
+                '</details>' +
+                '<details class="analytics-section">' +
+                    '<summary>Tabla de datos filtrados</summary>' +
+                    '<div class="analytics-body">' +
+                        '<div class="data-table-wrap">' +
+                            '<table class="data-table">' +
+                                '<thead><tr><th>Proyecto</th><th>Material</th><th>Altura</th><th>Alias</th></tr></thead>' +
+                                '<tbody id="dataTableBody"></tbody>' +
+                            '</table>' +
+                        '</div>' +
+                        '<div class="table-note" id="dataTableNote"></div>' +
+                    '</div>' +
+                '</details>';
+            document.getElementById("menu").appendChild(analyticsPanel);
+            filterFunc();
         </script>        
     </body>
 </html>
